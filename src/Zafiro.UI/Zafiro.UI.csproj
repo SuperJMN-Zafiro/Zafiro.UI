@@ -10,9 +10,7 @@
     <Folder Include="ObjectEditor\TemplateMatchers\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="UI.csproj" />
-  </ItemGroup>
+	<Import Project="..\Common.props" />
 
   <ItemGroup>
     <PackageReference Include="Zafiro.FileSystem" Version="4.0.4" />
