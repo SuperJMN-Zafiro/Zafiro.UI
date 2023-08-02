@@ -1,6 +1,8 @@
-﻿namespace Zafiro.UI;
+﻿using CSharpFunctionalExtensions;
+
+namespace Zafiro.UI;
 
 public interface INotificationService
 {
-    Task Show(string message);
+    Task Show(string message, Maybe<string> title);
 }
