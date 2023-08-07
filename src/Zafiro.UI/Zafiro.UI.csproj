@@ -1,19 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="ObjectEditor\TemplateMatchers\" />
   </ItemGroup>
-
-	<Import Project="..\Common.props" />
-
   <ItemGroup>
     <PackageReference Include="Zafiro.FileSystem" Version="4.0.11" />
+    <PackageReference Include="Zafiro" Version="4.0.4" />
   </ItemGroup>
-
+  <Import Project="..\Common.props" />
 </Project>
