@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -7,16 +7,9 @@
   <ItemGroup>
     <Folder Include="ObjectEditor\TemplateMatchers\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Zafiro" Version="4.0.4" />
+    <PackageReference Include="Zafiro.FileSystem" Version="4.0.10" />
+  </ItemGroup>
   <Import Project="..\Common.props" />
-  <ItemGroup>
-    <ProjectReference Include="E:\Repos\SuperJMN-Zafiro\Zafiro.FileSystem\src\Zafiro.FileSystem\Zafiro.FileSystem.csproj" Version="4.0.4">
-      <Temp>Zafiro.FileSystem</Temp>
-      <Name>Zafiro.FileSystem</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="E:\Repos\SuperJMN-Zafiro\Zafiro\src\Zafiro\Zafiro.csproj">
-      <Temp>Zafiro</Temp>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
