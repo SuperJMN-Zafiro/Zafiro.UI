@@ -3,7 +3,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using CSharpFunctionalExtensions;
 using ReactiveUI;
-using Zafiro.Functional;
+using Zafiro.CSharpFunctionalExtensions;
 using Zafiro.Mixins;
 
 namespace Zafiro.UI.Transfers;

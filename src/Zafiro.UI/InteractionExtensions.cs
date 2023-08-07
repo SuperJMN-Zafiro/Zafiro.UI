@@ -2,7 +2,7 @@
 using System.Reactive.Linq;
 using CSharpFunctionalExtensions;
 using JetBrains.Annotations;
-using Zafiro.Functional;
+using Zafiro.CSharpFunctionalExtensions;
 
 namespace Zafiro.UI;
 
