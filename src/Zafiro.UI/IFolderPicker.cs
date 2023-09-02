@@ -5,5 +5,5 @@ namespace Zafiro.UI;
 
 public interface IFolderPicker
 {
-    IObservable<Result<IZafiroDirectory>> Pick();
+    IObservable<Maybe<IZafiroDirectory>> Pick(string title);
 }

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using ReactiveUI;
 
-namespace AvaloniaSyncer.ViewModels;
+namespace Zafiro.UI;
 
 public static class ReactiveCommandMixin
 {
