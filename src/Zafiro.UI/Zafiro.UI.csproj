@@ -4,12 +4,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="ObjectEditor\TemplateMatchers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Zafiro.FileSystem" Version="4.0.12" />
-    <PackageReference Include="Zafiro" Version="4.0.4" />
-  </ItemGroup>
   <Import Project="..\Common.props" />
+  <ItemGroup>
+	  <PackageReference Include="Zafiro.FileSystem" Version="4.0.12" />
+	  <PackageReference Include="Zafiro" Version="4.0.4" />
+  </ItemGroup>
 </Project>
