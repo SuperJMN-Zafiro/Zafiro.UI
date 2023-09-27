@@ -6,7 +6,7 @@ using ReactiveUI;
 
 namespace Zafiro.UI;
 
-public static class Stoppable
+public static class StoppableCommand
 {
     public static StoppableCommand<TIn, TOut> Create<TIn, TOut>(Func<TIn, IObservable<TOut>> logic, IObservable<bool> canStart)
     {
@@ -17,12 +17,16 @@ public static class Stoppable
     {
         return new StoppableCommand<Unit, TOut>(_ => logic(), canStart);
     }
+
+    public static IStoppableCommand<Unit, TOut> CreateFromTask<TOut>(Func<CancellationToken, Task<TOut>> task, IObservable<bool> canExecute)
+    {
+        return new StoppableCommand<Unit, TOut>(_ => Observable.FromAsync(task), canExecute);
+    }
 }
 
-public class StoppableCommand<TIn, TOut> : IStoppableCommand
+public class StoppableCommand<TIn, TOut> : IStoppableCommand<TIn, TOut>, IStoppableCommand
 {
     private readonly ReactiveCommand<TIn, TOut> startCommand;
-    public ICommand Stop { get; }
 
     public StoppableCommand(Func<TIn, IObservable<TOut>> logic, IObservable<bool> canStart)
     {
@@ -34,7 +38,12 @@ public class StoppableCommand<TIn, TOut> : IStoppableCommand
         startCommand.IsExecuting.Subscribe(isExecuting);
     }
 
-    public ICommand Start { get; }
+    public ReactiveCommand<TIn, TOut> Start { get; }
+    IReactiveCommand IStoppableCommand.Stop => Stop;
+
+    IReactiveCommand IStoppableCommand.Start => Start;
+    public ReactiveCommand<Unit, Unit> Stop { get; }
+
     public IObservable<bool> IsExecuting => startCommand.IsExecuting;
     public IObservable<bool> CanExecute => startCommand.CanExecute;
     public IObservable<TOut> Results => startCommand;
