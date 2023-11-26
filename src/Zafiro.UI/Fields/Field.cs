@@ -1,4 +1,4 @@
-﻿using System.Windows.Input;
+﻿using System.Reactive;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveUI.Validation.Helpers;
@@ -22,7 +22,7 @@ public class Field<T> : ReactiveValidationObject
 
     [Reactive]
     public T Value { get; set; }
-    public ICommand Commit { get; }
-    public ICommand Rollback { get; }
+    public IReactiveCommand<Unit, T> Commit { get; }
+    public IReactiveCommand<Unit, T> Rollback { get; }
     public IObservable<bool> IsValid => ValidationContext.Valid;
 }
