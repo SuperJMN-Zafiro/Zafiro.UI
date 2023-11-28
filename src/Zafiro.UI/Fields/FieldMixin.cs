@@ -23,8 +23,6 @@ public static class FieldMixin
         return field.WhenAnyValue(x => x.Value).ToSignal().InvokeCommand(field.Commit);
     }
 
-
-    // TODO: Remove this if this (https://github.com/reactiveui/ReactiveUI/pull/3681 is merged to main) is eventually merged into main
     public static IDisposable InvokeCommand<T, TResult>(this IObservable<T> item, IReactiveCommand<T, TResult>? command) =>
         command is null
             ? throw new ArgumentNullException(nameof(command))

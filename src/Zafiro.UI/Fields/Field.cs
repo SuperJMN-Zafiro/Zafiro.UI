@@ -22,7 +22,7 @@ public class Field<T> : ReactiveValidationObject
 
     [Reactive]
     public T Value { get; set; }
-    public IReactiveCommand<Unit, T> Commit { get; }
-    public IReactiveCommand<Unit, T> Rollback { get; }
+    public ReactiveCommandBase<Unit, T> Commit { get; }
+    public ReactiveCommandBase<Unit, T> Rollback { get; }
     public IObservable<bool> IsValid => ValidationContext.Valid;
 }
