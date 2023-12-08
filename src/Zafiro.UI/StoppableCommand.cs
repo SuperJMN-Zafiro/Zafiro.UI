@@ -1,6 +1,7 @@
 ﻿using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows.Input;
 using CSharpFunctionalExtensions;
 using ReactiveUI;
 
@@ -8,10 +9,7 @@ namespace Zafiro.UI;
 
 public static class StoppableCommand
 {
-    public static StoppableCommand<TIn, TOut> Create<TIn, TOut>(Func<TIn, IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart)
-    {
-        return new StoppableCommand<TIn, TOut>(logic, canStart);
-    }
+    public static StoppableCommand<TIn, TOut> Create<TIn, TOut>(Func<TIn, IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart) => new(logic, canStart);
 
     public static StoppableCommand<Unit, TOut> Create<TOut>(Func<IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart)
     {
@@ -26,25 +24,18 @@ public static class StoppableCommand
 
 public class StoppableCommand<TIn, TOut> : IStoppableCommand<TIn, TOut>, IStoppableCommand
 {
-    private readonly ReactiveCommand<TIn, TOut> startCommand;
-
     public StoppableCommand(Func<TIn, IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart)
     {
         var isExecuting = new Subject<bool>();
-        var stopCommand = ReactiveCommand.Create(() => { }, isExecuting);
-        Stop = stopCommand;
-        startCommand = ReactiveCommand.CreateFromObservable<TIn, TOut>(e => logic(e).TakeUntil(stopCommand), canStart.GetValueOrDefault());
-        Start = startCommand;
-        startCommand.IsExecuting.Subscribe(isExecuting);
+        Stop = ReactiveCommand.Create(() => { }, isExecuting);
+        Start = ReactiveCommand.CreateFromObservable<TIn, TOut>(e => logic(e).TakeUntil(Stop), canStart.GetValueOrDefault());
+        Start.IsExecuting.Subscribe(isExecuting);
     }
 
+    ICommand IStoppableCommand.Start => Start;
+    ICommand IStoppableCommand.Stop => Stop;
+    public IObservable<bool> CanExecute => Start.CanExecute;
+    public ReactiveCommandBase<Unit, Unit> Stop { get; }
     public ReactiveCommand<TIn, TOut> Start { get; }
-    IReactiveCommand IStoppableCommand.Stop => Stop;
-
-    IReactiveCommand IStoppableCommand.Start => Start;
-    public ReactiveCommand<Unit, Unit> Stop { get; }
-
-    public IObservable<bool> IsExecuting => startCommand.IsExecuting;
-    public IObservable<bool> CanExecute => startCommand.CanExecute;
-    public IObservable<TOut> Results => startCommand;
+    public IObservable<bool> IsExecuting => Start.IsExecuting;
 }
