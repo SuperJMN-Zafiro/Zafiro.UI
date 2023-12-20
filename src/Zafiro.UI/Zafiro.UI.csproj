@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>net7.0;net7.0-android</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -8,13 +8,12 @@
   <ItemGroup>
     <PackageReference Include="ReactiveUI.Fody" Version="19.5.1" />
     <PackageReference Include="ReactiveUI.Validation" Version="3.1.7" />
-    <ProjectReference Include="E:\Repos\SuperJMN-Zafiro\Zafiro.FileSystem\src\Zafiro.FileSystem\Zafiro.FileSystem.csproj" Version="4.0.12">
-      <Temp>Zafiro.FileSystem</Temp>
-      <Name>Zafiro.FileSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="E:\Repos\SuperJMN-Zafiro\Zafiro\src\Zafiro\Zafiro.csproj" Version="4.0.4">
-      <Temp>Zafiro</Temp>
-      <Name>Zafiro</Name>
-    </ProjectReference>
+    <PackageReference Include="Zafiro.FileSystem" Version="4.0.12" />
+    <PackageReference Include="Zafiro" Version="4.0.4" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+    <PackageReference Include="Xamarin.AndroidX.Core">
+      <Version>1.12.0.3</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>
