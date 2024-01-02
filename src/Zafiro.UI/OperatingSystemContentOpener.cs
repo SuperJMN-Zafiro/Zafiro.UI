@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reactive.Linq;
 using CSharpFunctionalExtensions;
-using Zafiro.IO;
+using Zafiro.Reactive;
 using Process = System.Diagnostics.Process;
 
 #if ANDROID
