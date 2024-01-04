@@ -1,4 +1,5 @@
 ﻿using System.Reactive;
+using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveUI.Validation.Helpers;
@@ -9,12 +10,13 @@ namespace Zafiro.UI.Fields;
 
 public class Field<T> : ReactiveValidationObject
 {
-    public Field(T initialValue)
+    public Field()
     {
-        CommittedValue = initialValue;
         this.WhenAnyValue(x => x.CommittedValue).BindTo(this, x => x.Value);
+        this.WhenAnyValue(x => x.Initial).Do(v => CommittedValue = v).Subscribe();
         Commit = ReactiveCommand.Create(() => CommittedValue = Value!, IsValid);
-        Rollback = ReactiveCommand.Create(() => Value = CommittedValue);
+        IsDirty = this.WhenAnyValue(x => x.CommittedValue, x => x.Value, (cv, v) => !Equals(cv, v));
+        Rollback = ReactiveCommand.Create(() => Value = CommittedValue!);
     }
 
     [Reactive]
@@ -22,7 +24,12 @@ public class Field<T> : ReactiveValidationObject
 
     [Reactive]
     public T Value { get; set; }
+
+    [Reactive]
+    public T Initial { get; set; }
+
     public ReactiveCommandBase<Unit, T> Commit { get; }
     public ReactiveCommandBase<Unit, T> Rollback { get; }
     public IObservable<bool> IsValid => ValidationContext.Valid;
+    public IObservable<bool> IsDirty { get; }
 }

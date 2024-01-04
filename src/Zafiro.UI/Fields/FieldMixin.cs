@@ -2,7 +2,7 @@
 using ReactiveUI;
 using ReactiveUI.Validation.Extensions;
 using ReactiveUI.Validation.Helpers;
-using Zafiro.Mixins;
+using Zafiro.Reactive;
 
 namespace Zafiro.UI.Fields;
 
