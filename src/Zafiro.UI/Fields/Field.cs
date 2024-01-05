@@ -8,7 +8,7 @@ using ReactiveUI.Validation.Helpers;
 
 namespace Zafiro.UI.Fields;
 
-public class Field<T> : ReactiveValidationObject
+public class Field<T> : ReactiveValidationObject, IField
 {
     public Field()
     {
