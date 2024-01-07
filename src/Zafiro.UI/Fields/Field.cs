@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveUI.Validation.Helpers;
+using Zafiro.Reactive;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -14,7 +15,11 @@ public class Field<T> : ReactiveValidationObject, IField
     {
         this.WhenAnyValue(x => x.CommittedValue).BindTo(this, x => x.Value);
         this.WhenAnyValue(x => x.Initial).Do(v => CommittedValue = v).Subscribe();
-        Commit = ReactiveCommand.Create(() => CommittedValue = Value!, IsValid);
+        Commit = ReactiveCommand.Create(() =>
+        {
+            CommittedValue = Value!;
+            return Unit.Default;
+        }, IsValid);
         IsDirty = this.WhenAnyValue(x => x.CommittedValue, x => x.Value, (cv, v) => !Equals(cv, v));
         Rollback = ReactiveCommand.Create(() => Value = CommittedValue!);
     }
@@ -28,7 +33,7 @@ public class Field<T> : ReactiveValidationObject, IField
     [Reactive]
     public T Initial { get; set; }
 
-    public ReactiveCommandBase<Unit, T> Commit { get; }
+    public ReactiveCommandBase<Unit, Unit> Commit { get; }
     public ReactiveCommandBase<Unit, T> Rollback { get; }
     public IObservable<bool> IsValid => ValidationContext.Valid;
     public IObservable<bool> IsDirty { get; }
