@@ -21,7 +21,10 @@ public class Field<T> : ReactiveValidationObject, IField
             return Unit.Default;
         }, IsValid);
         IsDirty = this.WhenAnyValue(x => x.CommittedValue, x => x.Value, (cv, v) => !Equals(cv, v));
-        Rollback = ReactiveCommand.Create(() => Value = CommittedValue!);
+        Rollback = ReactiveCommand.Create(() =>
+        {
+            Value = CommittedValue!;
+        });
     }
 
     [Reactive]
@@ -34,7 +37,7 @@ public class Field<T> : ReactiveValidationObject, IField
     public T Initial { get; set; }
 
     public ReactiveCommandBase<Unit, Unit> Commit { get; }
-    public ReactiveCommandBase<Unit, T> Rollback { get; }
+    public ReactiveCommandBase<Unit, Unit> Rollback { get; }
     public IObservable<bool> IsValid => ValidationContext.Valid;
     public IObservable<bool> IsDirty { get; }
 }
