@@ -11,7 +11,7 @@ public class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         Name = new Field<string>("Saludos");
-        Name.AddRule(s => s.Contains("Sal"), "Doesn't contain sal");
+        Name.Validate(s => s.Contains("Sal"), "Doesn't contain sal");
         Name.AutoCommit();
     }
 }
