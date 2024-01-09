@@ -1,5 +1,6 @@
 ﻿using System.Reactive;
 using System.Reactive.Linq;
+using CSharpFunctionalExtensions;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveUI.Validation.Helpers;
@@ -11,10 +12,9 @@ namespace Zafiro.UI.Fields;
 
 public class Field<T> : ReactiveValidationObject, IField
 {
-    public Field()
+    public Field(T initialValue)
     {
         this.WhenAnyValue(x => x.CommittedValue).BindTo(this, x => x.Value);
-        this.WhenAnyValue(x => x.Initial).Do(v => CommittedValue = v).Subscribe();
         Commit = ReactiveCommand.Create(() =>
         {
             CommittedValue = Value!;
@@ -25,6 +25,8 @@ public class Field<T> : ReactiveValidationObject, IField
         {
             Value = CommittedValue!;
         });
+
+        CommittedValue = initialValue;
     }
 
     [Reactive]
@@ -32,9 +34,6 @@ public class Field<T> : ReactiveValidationObject, IField
 
     [Reactive]
     public T Value { get; set; }
-
-    [Reactive]
-    public T Initial { get; set; }
 
     public ReactiveCommandBase<Unit, Unit> Commit { get; }
     public ReactiveCommandBase<Unit, Unit> Rollback { get; }
