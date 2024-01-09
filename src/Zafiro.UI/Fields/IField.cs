@@ -7,4 +7,5 @@ public interface IField : IValidatable
 {
     public IObservable<bool> IsDirty { get; }
     ReactiveCommandBase<Unit, Unit> Commit { get; }
+    ReactiveCommandBase<Unit, Unit> Rollback { get; }
 }
