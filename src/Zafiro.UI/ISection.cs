@@ -1,4 +1,4 @@
-﻿namespace Zafiro.Avalonia.Models;
+﻿namespace Zafiro.UI;
 
 public interface ISection
 {
