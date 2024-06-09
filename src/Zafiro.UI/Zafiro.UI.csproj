@@ -7,13 +7,14 @@
   <Import Project="..\Common.props" />
   <ItemGroup>
     <PackageReference Include="ReactiveUI.Fody" Version="19.5.1" />
-    <PackageReference Include="ReactiveUI.Validation" Version="[3.0.1,)" />
-    <PackageReference Include="Zafiro" Version="4.0.17" />
-    <PackageReference Include="Zafiro.FileSystem" Version="[4,)" />
+    <PackageReference Include="ReactiveUI.Validation" Version="4.0.9" />
+    <PackageReference Include="Zafiro.FileSystem.Mutable" Version="6.0.4" />
+    <PackageReference Include="Zafiro" Version="4.0.33" />
+    <PackageReference Include="Zafiro.FileSystem" Version="6.0.4" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
     <PackageReference Include="Xamarin.AndroidX.Core">
       <Version>1.12.*</Version>
     </PackageReference>
-  </ItemGroup>    
+  </ItemGroup>
 </Project>

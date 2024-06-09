@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Linq;
 using ReactiveUI;
+using ReactiveUI.Validation.Abstractions;
 using ReactiveUI.Validation.Extensions;
 using ReactiveUI.Validation.Helpers;
 using Zafiro.Reactive;
@@ -8,6 +9,11 @@ namespace Zafiro.UI.Fields;
 
 public static class FieldMixin
 {
+    public static void IncludeValidationOf<T>(this IValidatableViewModel validatable, Field<T> field)
+    {
+        validatable.ValidationContext.Add(field.ValidationContext);
+    }
+    
     public static ValidationHelper Validate<T>(this Field<T> field, Func<T, bool> isPropertyValid, string errorMessage)
     {
         return field.ValidationRule(x => x.Value, isPropertyValid!, errorMessage);
