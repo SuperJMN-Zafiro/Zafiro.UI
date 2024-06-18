@@ -1,5 +1,5 @@
 using CSharpFunctionalExtensions;
-using Zafiro.FileSystem.Mutable.Mutable;
+using Zafiro.FileSystem.Mutable;
 using Zafiro.FileSystem.Readonly;
 
 namespace Zafiro.UI;
