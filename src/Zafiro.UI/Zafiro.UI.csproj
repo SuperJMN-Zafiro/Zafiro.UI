@@ -15,7 +15,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Zafiro.FileSystem\src\Zafiro.FileSystem.Mutable\Zafiro.FileSystem.Mutable.csproj" />
+    <ProjectReference Include="..\..\..\Zafiro.FileSystem\src\Zafiro.FileSystem.Mutable\Zafiro.FileSystem.Mutable.Delete.csproj" />
     <ProjectReference Include="..\..\..\Zafiro\src\Zafiro\Zafiro.csproj" />
   </ItemGroup>
 </Project>
