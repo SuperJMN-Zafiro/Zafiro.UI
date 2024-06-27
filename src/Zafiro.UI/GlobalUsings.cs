@@ -1,3 +1,3 @@
 // Global using directives
 
-global using Result = global::CSharpFunctionalExtensions.Result;
+global using Result = CSharpFunctionalExtensions.Result;
