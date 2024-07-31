@@ -22,7 +22,7 @@ public static class StoppableCommand
     }
 }
 
-public class StoppableCommand<TIn, TOut> : IStoppableCommand<TIn, TOut>, IStoppableCommand
+public class StoppableCommand<TIn, TOut> : IStoppableCommand<TIn, TOut>, IStoppableCommand, IDisposable
 {
     public StoppableCommand(Func<TIn, IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart)
     {
@@ -38,4 +38,10 @@ public class StoppableCommand<TIn, TOut> : IStoppableCommand<TIn, TOut>, IStoppa
     public ReactiveCommandBase<Unit, Unit> Stop { get; }
     public ReactiveCommand<TIn, TOut> Start { get; }
     public IObservable<bool> IsExecuting => Start.IsExecuting;
+
+    public void Dispose()
+    {
+        Stop.Dispose();
+        Start.Dispose();
+    }
 }
