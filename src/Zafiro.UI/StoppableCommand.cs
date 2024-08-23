@@ -22,26 +22,26 @@ public static class StoppableCommand
     }
 }
 
-public class StoppableCommand<TIn, TOut> : IStoppableCommand<TIn, TOut>, IStoppableCommand, IDisposable
+public class StoppableCommand<TIn, TOut> : IStoppableCommand<TIn, TOut>, IDisposable
 {
     public StoppableCommand(Func<TIn, IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart)
     {
         var isExecuting = new Subject<bool>();
-        Stop = ReactiveCommand.Create(() => { }, isExecuting);
-        Start = ReactiveCommand.CreateFromObservable<TIn, TOut>(e => logic(e).TakeUntil(Stop), canStart.GetValueOrDefault());
-        Start.IsExecuting.Subscribe(isExecuting);
+        StopReactive = ReactiveCommand.Create(() => { }, isExecuting);
+        StartReactive = ReactiveCommand.CreateFromObservable<TIn, TOut>(e => logic(e).TakeUntil(StopReactive), canStart.GetValueOrDefault());
+        StartReactive.IsExecuting.Subscribe(isExecuting);
     }
 
-    ICommand IStoppableCommand.Start => Start;
-    ICommand IStoppableCommand.Stop => Stop;
-    public IObservable<bool> CanExecute => Start.CanExecute;
-    public ReactiveCommandBase<Unit, Unit> Stop { get; }
-    public ReactiveCommand<TIn, TOut> Start { get; }
-    public IObservable<bool> IsExecuting => Start.IsExecuting;
+    public IObservable<bool> CanExecute => StartReactive.CanExecute;
+    public ICommand Start => StartReactive;
+    public ICommand Stop => StopReactive;
+    public ReactiveCommandBase<Unit, Unit> StopReactive { get; }
+    public ReactiveCommand<TIn, TOut> StartReactive { get; }
+    public IObservable<bool> IsExecuting => StartReactive.IsExecuting;
 
     public void Dispose()
     {
-        Stop.Dispose();
-        Start.Dispose();
+        StopReactive.Dispose();
+        StartReactive.Dispose();
     }
 }

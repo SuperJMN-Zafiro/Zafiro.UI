@@ -3,20 +3,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Sample.ViewModels"
+             xmlns:taskManager="clr-namespace:Zafiro.UI.TaskManager;assembly=Zafiro.UI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Sample.Views.MainView"
              x:CompileBindings="False"
              x:DataType="vm:MainViewModel">
-	<Design.DataContext>
-		<!-- This only sets the DataContext for the previewer in an IDE,
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:MainViewModel />
-	</Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
 
-	<StackPanel HorizontalAlignment="Center">
-		<TextBox Text="{Binding Name.Value, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <TextBlock Text="{Binding Name.CommittedValue}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-		<Button Command="{Binding Name.Commit}" Content="Commit" />
-        <Button Command="{Binding Name.Rollback}" Content="Rollback" />
-    </StackPanel>
+    <UniformGrid Rows="1">
+        <StackPanel HorizontalAlignment="Center">
+            <TextBox Text="{Binding Name.Value, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Text="{Binding Name.CommittedValue}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Command="{Binding Name.Commit}" Content="Commit" />
+            <Button Command="{Binding Name.Rollback}" Content="Rollback" />
+        </StackPanel>
+        <Panel DataContext="{Binding TasksSampleViewModel}">
+            <ListBox DataContext="{Binding TaskManagerViewModel}"
+                     ItemsSource="{Binding Tasks}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="taskManager:IUnitTask">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" />
+                            <Button Content="Start" Command="{Binding Execution.Start}" />
+                            <Button Content="Stop" Command="{Binding Execution.Stop}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Panel>
+    </UniformGrid>
 </UserControl>

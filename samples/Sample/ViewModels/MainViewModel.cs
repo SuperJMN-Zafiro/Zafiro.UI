@@ -1,4 +1,5 @@
-﻿using Zafiro.UI.Fields;
+﻿using Sample.Samples;
+using Zafiro.UI.Fields;
 
 namespace Sample.ViewModels;
 
@@ -7,6 +8,8 @@ public class MainViewModel : ViewModelBase
     public string Greeting => "Welcome to Avalonia!";
 
     public Field<string> Name { get; }
+
+    public TasksSampleViewModel TasksSampleViewModel { get; set; } = new TasksSampleViewModel();
 
     public MainViewModel()
     {
