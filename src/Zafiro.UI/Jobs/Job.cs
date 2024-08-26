@@ -1,8 +1,10 @@
-namespace Zafiro.UI.TaskManager;
+using Zafiro.UI.Jobs.Execution;
 
-public class UITask
+namespace Zafiro.UI.Jobs;
+
+public class Job
 {
-    public UITask(string id, string name, object icon, IObservable<string> status, IExecution execution)
+    public Job(string id, string name, object icon, IObservable<string> status, IExecution execution)
     {
         Id = id;
         Name = name;
@@ -12,7 +14,7 @@ public class UITask
     }
 
     public string Id { get; }
-    public string Name { get;  }
+    public string Name { get; }
     public object Icon { get; }
     public IObservable<string> Status { get; }
     public IExecution Execution { get; }

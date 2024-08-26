@@ -9,7 +9,10 @@ namespace Zafiro.UI;
 
 public static class StoppableCommand
 {
-    public static StoppableCommand<TIn, TOut> Create<TIn, TOut>(Func<TIn, IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart) => new(logic, canStart);
+    public static StoppableCommand<TIn, TOut> Create<TIn, TOut>(Func<TIn, IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart)
+    {
+        return new StoppableCommand<TIn, TOut>(logic, canStart);
+    }
 
     public static StoppableCommand<Unit, TOut> Create<TOut>(Func<IObservable<TOut>> logic, Maybe<IObservable<bool>> canStart)
     {

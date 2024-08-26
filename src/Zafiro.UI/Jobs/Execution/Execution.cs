@@ -2,12 +2,13 @@ using System.Reactive;
 using CSharpFunctionalExtensions;
 using ReactiveUI;
 using Zafiro.Reactive;
+using Zafiro.UI.Jobs.Progress;
 
-namespace Zafiro.UI.TaskManager;
+namespace Zafiro.UI.Jobs.Execution;
 
 public class Execution : IExecution
 {
-    public Execution(IObservable<Unit> observable, IObservable<IMyProgress> progress)
+    public Execution(IObservable<Unit> observable, IObservable<IProgress> progress)
     {
         Progress = progress;
         var stoppable = StoppableCommand.Create(observable.ToSignal, Maybe<IObservable<bool>>.None);
@@ -17,5 +18,5 @@ public class Execution : IExecution
 
     public ReactiveCommandBase<Unit, Unit> Start { get; }
     public ReactiveCommandBase<Unit, Unit> Stop { get; }
-    public IObservable<IMyProgress> Progress { get; set; }
+    public IObservable<IProgress> Progress { get; set; }
 }

@@ -1,18 +1,17 @@
-﻿namespace Zafiro.UI
+﻿namespace Zafiro.UI;
+
+public class PopupModel
 {
-    public class PopupModel
+    public PopupModel(object content, string title, IEnumerable<Option> options)
     {
-        public string Title { get; }
-
-        public PopupModel(object content, string title, IEnumerable<Option> options)
-        {
-            Title = title;
-            Content = content;
-            Options = options;
-        }
-
-        public IEnumerable<Option> Options { get; set; }
-
-        public object Content { get; }
+        Title = title;
+        Content = content;
+        Options = options;
     }
+
+    public string Title { get; }
+
+    public IEnumerable<Option> Options { get; set; }
+
+    public object Content { get; }
 }

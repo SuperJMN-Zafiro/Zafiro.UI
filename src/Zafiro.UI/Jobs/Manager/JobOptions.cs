@@ -1,6 +1,6 @@
-namespace Zafiro.UI.TaskManager;
+namespace Zafiro.UI.Jobs.Manager;
 
-public class TaskOptions
+public class JobOptions
 {
     public bool AutoStart { get; init; }
     public bool RemoveOnCompleted { get; init; }

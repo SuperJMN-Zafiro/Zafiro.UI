@@ -1,8 +1,7 @@
-﻿namespace Zafiro.UI
+﻿namespace Zafiro.UI;
+
+public interface IHaveDataContext
 {
-    public interface IHaveDataContext
-    {
-        void SetDataContext(object dataContext);
-        object Object { get; }
-    }
+    object Object { get; }
+    void SetDataContext(object dataContext);
 }

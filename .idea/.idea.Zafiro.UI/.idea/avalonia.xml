@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="samples/Sample/App.axaml" value="samples/Sample.Desktop/Sample.Desktop.csproj" />
+        <entry key="samples/Sample/Samples/ProgressControl.axaml" value="samples/Sample.Desktop/Sample.Desktop.csproj" />
+        <entry key="samples/Sample/Views/MainView.axaml" value="samples/Sample.Desktop/Sample.Desktop.csproj" />
+        <entry key="samples/Sample/Views/MainWindow.axaml" value="samples/Sample.Desktop/Sample.Desktop.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
