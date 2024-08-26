@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Sample.ViewModels"
              xmlns:taskManager="clr-namespace:Zafiro.UI.TaskManager;assembly=Zafiro.UI"
+             xmlns:sample="clr-namespace:Sample"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Sample.Views.MainView"
              x:CompileBindings="False"
@@ -13,6 +14,12 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
+    
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="sample:DoubleProgress">
+            <ProgressBar Value="{Binding Value}" />
+        </DataTemplate>
+    </UserControl.DataTemplates>
 
     <UniformGrid Rows="1">
         <StackPanel HorizontalAlignment="Center">
@@ -25,9 +32,10 @@
             <ListBox DataContext="{Binding TaskManagerViewModel}"
                      ItemsSource="{Binding Tasks}">
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="taskManager:IUnitTask">
+                    <DataTemplate DataType="taskManager:UITask">
                         <StackPanel>
                             <TextBlock Text="{Binding Name}" />
+                            <ContentControl Content="{Binding Execution.Progress^}" />
                             <Button Content="Start" Command="{Binding Execution.Start}" />
                             <Button Content="Stop" Command="{Binding Execution.Stop}" />
                         </StackPanel>

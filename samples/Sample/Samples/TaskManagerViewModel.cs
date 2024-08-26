@@ -20,11 +20,11 @@ public class TaskManagerViewModel : IDisposable
         Tasks = tasks;
     }
 
-    public ReadOnlyObservableCollection<IUITask> Tasks { get; }
+    public ReadOnlyObservableCollection<UITask> Tasks { get; }
 
-    public ReadOnlyObservableCollection<IUITask> PermanentTasks { get; }
+    public ReadOnlyObservableCollection<UITask> PermanentTasks { get; }
 
-    public ReadOnlyObservableCollection<IUITask> TransientTasks { get; }
+    public ReadOnlyObservableCollection<UITask> TransientTasks { get; }
 
     public void Dispose()
     {
