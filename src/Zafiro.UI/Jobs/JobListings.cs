@@ -9,7 +9,7 @@ public class JobListings : IDisposable, IJobListings
 {
     private readonly CompositeDisposable compositeDisposable = new();
 
-    public JobListings(JobManager jobManager)
+    public JobListings(IJobManager jobManager)
     {
         jobManager.Tasks.Transient().Transform(x => x.Job).Bind(out var transient).Subscribe().DisposeWith(compositeDisposable);
         TransientTasks = transient;
