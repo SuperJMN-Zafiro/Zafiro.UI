@@ -16,7 +16,15 @@ using Project = Nuke.Common.ProjectModel.Project;
 [AzurePipelines(AzurePipelinesImage.WindowsLatest, ImportSecrets = new[] { nameof(NuGetApiKey) }, AutoGenerate = false)]
 class Build : NukeBuild
 {
+    [Parameter]
+    readonly Configuration Configuration = IsServerBuild
+        ? Configuration.Release
+        : Configuration.Debug;
+
+    [GitVersion] readonly GitVersion GitVersion;
     [Parameter] [Secret] readonly string NuGetApiKey;
+
+    [GitRepository] readonly GitRepository Repository;
 
     [Solution] readonly Solution Solution;
 
@@ -30,22 +38,13 @@ class Build : NukeBuild
 
     [Parameter("publish-self-contained")] public bool PublishSelfContained { get; set; } = true;
 
-    [GitVersion] readonly GitVersion GitVersion;
-
-    [GitRepository] readonly GitRepository Repository;
-
-    [Parameter]
-    readonly Configuration Configuration = IsServerBuild
-        ? Configuration.Release
-        : Configuration.Debug;
-
     AbsolutePath OutputDirectory => RootDirectory / "output";
 
     Target Clean => _ => _
         .Executes(() =>
         {
             OutputDirectory.CreateOrCleanDirectory();
-            var absolutePaths = RootDirectory.GlobDirectories("**/bin", "**/obj").Where(a => !((string) a).Contains("build")).ToList();
+            var absolutePaths = RootDirectory.GlobDirectories("**/bin", "**/obj").Where(a => !((string)a).Contains("build")).ToList();
             Log.Information("Deleting {Dirs}", absolutePaths);
             absolutePaths.DeleteDirectories();
         });
@@ -93,7 +92,7 @@ class Build : NukeBuild
                     .SetApiKey(NuGetApiKey)
                     .CombineWith(
                         OutputDirectory.GlobFiles("*.nupkg").NotEmpty(), (s, v) => s.SetTargetPath(v)),
-                degreeOfParallelism: 5, completeOnFailure: true);
+                5, true);
         });
 
     public static int Main() => Execute<Build>(x => x.Publish);

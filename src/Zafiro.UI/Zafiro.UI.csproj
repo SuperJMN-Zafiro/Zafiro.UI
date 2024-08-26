@@ -8,12 +8,12 @@
     <ItemGroup>
         <PackageReference Include="ReactiveUI.Fody" Version="19.5.41"/>
         <PackageReference Include="ReactiveUI.Validation" Version="4.0.9"/>
-        <PackageReference Include="Zafiro" Version="4.0.35" />
-        <PackageReference Include="Zafiro.FileSystem" Version="7.0.0" />
+        <PackageReference Include="Zafiro" Version="4.0.35"/>
+        <PackageReference Include="Zafiro.FileSystem" Version="7.0.0"/>
     </ItemGroup>
-<!--    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">-->
-<!--        <PackageReference Include="Xamarin.AndroidX.Core">-->
-<!--            <Version>1.12.*</Version>-->
-<!--        </PackageReference>-->
-<!--    </ItemGroup>-->
+    <!--    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">-->
+    <!--        <PackageReference Include="Xamarin.AndroidX.Core">-->
+    <!--            <Version>1.12.*</Version>-->
+    <!--        </PackageReference>-->
+    <!--    </ItemGroup>-->
 </Project>

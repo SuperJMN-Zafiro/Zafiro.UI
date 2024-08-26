@@ -12,9 +12,8 @@ public interface IStoppableCommand
     public ICommand Stop { get; }
 }
 
-public interface IStoppableCommand<TIn, TOut>
+public interface IStoppableCommand<TIn, TOut> : IStoppableCommand
 {
-    IObservable<bool> IsExecuting { get; }
-    public ReactiveCommand<TIn, TOut> Start { get; }
-    public ReactiveCommandBase<Unit, Unit> Stop { get; }
+    public ReactiveCommand<TIn, TOut> StartReactive { get; }
+    public ReactiveCommandBase<Unit, Unit> StopReactive { get; }
 }

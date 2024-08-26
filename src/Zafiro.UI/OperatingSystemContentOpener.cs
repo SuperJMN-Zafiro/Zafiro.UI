@@ -24,6 +24,7 @@ public class OperatingSystemContentOpener : IContentOpener
             {
                 await contents.DumpTo(fileStream);
             }
+
             return tempFileName;
         }).Bind(Open);
     }
@@ -39,10 +40,10 @@ public class OperatingSystemContentOpener : IContentOpener
 
     private static Result OpenDesktop(string tempFileName)
     {
-        Process.Start(new ProcessStartInfo()
+        Process.Start(new ProcessStartInfo
         {
             FileName = tempFileName,
-            UseShellExecute = true,
+            UseShellExecute = true
         });
 
         return Result.Success();

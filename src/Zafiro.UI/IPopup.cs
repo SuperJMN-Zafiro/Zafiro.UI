@@ -1,7 +1,6 @@
-﻿namespace Zafiro.UI
+﻿namespace Zafiro.UI;
+
+public interface IPopup
 {
-    public interface IPopup
-    {
-        Task ShowAsModal<T>(IHaveDataContext content, T viewModel, Action<ViewConfiguration<T>> configure);
-    }
+    Task ShowAsModal<T>(IHaveDataContext content, T viewModel, Action<ViewConfiguration<T>> configure);
 }
