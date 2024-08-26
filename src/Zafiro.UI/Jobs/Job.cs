@@ -2,7 +2,7 @@ using Zafiro.UI.Jobs.Execution;
 
 namespace Zafiro.UI.Jobs;
 
-public class Job
+public class Job : IJob
 {
     public Job(string id, string name, object icon, IObservable<string> status, IExecution execution)
     {

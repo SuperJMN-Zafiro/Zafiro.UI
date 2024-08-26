@@ -31,8 +31,7 @@
             <Button Command="{Binding Name.Rollback}" Content="Rollback" />
         </StackPanel>
         <Panel DataContext="{Binding TasksSampleViewModel}">
-            <ListBox DataContext="{Binding JobListings}"
-                     ItemsSource="{Binding Tasks}">
+            <ListBox ItemsSource="{Binding PermanentJobs}">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="jobs:Job">
                         <Grid ColumnDefinitions="60 Auto * Auto">

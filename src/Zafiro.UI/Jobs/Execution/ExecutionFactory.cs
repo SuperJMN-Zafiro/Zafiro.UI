@@ -28,7 +28,7 @@ public abstract class ExecutionFactory
         return new StoppableExecution(Observable.FromAsync(taskFactory).ToSignal(), progress);
     }
     
-    public static IExecution From<T>(ReactiveCommandBase<Unit, Unit> start, ReactiveCommandBase<Unit, Unit> stop, IObservable<IProgress> progress)
+    public static IExecution From(ReactiveCommandBase<Unit, Unit> start, ReactiveCommandBase<Unit, Unit> stop, IObservable<IProgress> progress)
     {
         return new StartStopExecution(start, stop, progress);
     }
