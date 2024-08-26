@@ -6,9 +6,9 @@ using Zafiro.UI.Jobs.Progress;
 
 namespace Zafiro.UI.Jobs.Execution;
 
-public class Execution : IExecution
+public class StoppableExecution : IExecution
 {
-    public Execution(IObservable<Unit> observable, IObservable<IProgress> progress)
+    public StoppableExecution(IObservable<Unit> observable, IObservable<IProgress> progress)
     {
         Progress = progress;
         var stoppable = StoppableCommand.Create(observable.ToSignal, Maybe<IObservable<bool>>.None);
@@ -18,5 +18,5 @@ public class Execution : IExecution
 
     public ReactiveCommandBase<Unit, Unit> Start { get; }
     public ReactiveCommandBase<Unit, Unit> Stop { get; }
-    public IObservable<IProgress> Progress { get; set; }
+    public IObservable<IProgress> Progress { get; }
 }
