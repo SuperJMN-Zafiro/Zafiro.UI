@@ -18,6 +18,11 @@ public static class StoppableCommand
     {
         return new StoppableCommand<Unit, TOut>(_ => logic(), canStart);
     }
+    
+    public static StoppableCommand<Unit, Unit> Create(IObservable<Unit> logic, Maybe<IObservable<bool>> canStart)
+    {
+        return new StoppableCommand<Unit, Unit>(_ => logic, canStart);
+    }
 
     public static IStoppableCommand<Unit, TOut> CreateFromTask<TOut>(Func<CancellationToken, Task<TOut>> task, Maybe<IObservable<bool>> canStart)
     {

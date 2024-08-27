@@ -30,6 +30,15 @@ public class ProgressBehavior : DisposingBehavior<ProgressBar>
         this.WhenAnyValue(x => x.Progress)
             .Do(progress =>
             {
+                if (progress is None)
+                {
+                    AssociatedObject.IsVisible = false;
+                }
+                else
+                {
+                    AssociatedObject.IsVisible = true;
+                }
+                
                 if (progress is Proportion ratioProgress)
                 {
                     AssociatedObject.IsIndeterminate = false;

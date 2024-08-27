@@ -1,3 +1,4 @@
+using System.Reactive;
 using Zafiro.UI.Jobs.Execution;
 
 namespace Zafiro.UI.Jobs;

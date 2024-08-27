@@ -1,4 +1,5 @@
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using DynamicData;
 
 namespace Zafiro.UI.Jobs.Manager;
@@ -19,12 +20,20 @@ public class JobManager : IJobManager
     {
         if (options.RemoveOnCompleted)
         {
-            job.OnCompleted(uiTask => tasks.Remove(uiTask.Id)).DisposeWith(disposables);
+            job.Execution.Start
+                .Delay(options.RemovalDelay, options.DelayScheduler)
+                .Do(_ => tasks.Remove(job.Id))
+                .Subscribe()
+                .DisposeWith(disposables);
         }
 
-        if (options.RemoveOnStopped)
+        if (options.RemoveOnStopped && job.Execution.Stop is not null)
         {
-            job.OnStopped(uiTask => tasks.Remove(uiTask.Id)).DisposeWith(disposables);
+            job.Execution.Stop
+                .Delay(options.RemovalDelay, options.DelayScheduler)
+                .Do(_ => tasks.Remove(job.Id))
+                .Subscribe()
+                .DisposeWith(disposables);
         }
 
         tasks.AddOrUpdate(new JobItem(job, options), new LambdaComparer<JobItem>((a, b) => Equals(a.Id, b.Id)));
