@@ -8,6 +8,6 @@ public interface IJob
     string Id { get; }
     string Name { get; }
     object Icon { get; }
-    IObservable<string> Status { get; }
+    IObservable<object> Status { get; }
     IExecution Execution { get; }
 }

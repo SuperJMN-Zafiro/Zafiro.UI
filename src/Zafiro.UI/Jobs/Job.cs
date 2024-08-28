@@ -17,6 +17,6 @@ public class Job : IJob
     public string Id { get; }
     public string Name { get; }
     public object Icon { get; }
-    public IObservable<string> Status { get; }
+    public IObservable<object> Status { get; }
     public IExecution Execution { get; }
 }
