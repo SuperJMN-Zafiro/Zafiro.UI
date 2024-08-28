@@ -5,7 +5,7 @@ namespace Zafiro.UI.Jobs;
 
 public class Job : IJob
 {
-    public Job(string id, string name, object icon, IObservable<string> status, IExecution execution)
+    public Job(string id, string name, object icon, IObservable<object> status, IExecution execution)
     {
         Id = id;
         Name = name;
