@@ -32,7 +32,7 @@
                 </ProgressBar>
                 <StackPanel Grid.Column="3" Orientation="Horizontal" x:Name="Controls">
                     <Button Content="Start" Command="{Binding Execution.Start}" />
-                    <Button IsVisible="{Binding !!Execution.Stop}" Content="Stop" Command="{Binding Execution.Stop}" />
+                    <Button IsVisible="{Binding !!Execution.Stop.CanExecute^}" Content="Stop" Command="{Binding Execution.Stop}" />
                     <Interaction.Behaviors>
                         <behaviors:OnSignalTriggerBehavior Trigger="{Binding Execution.Start}">
                             <ChangePropertyAction TargetObject="Controls" PropertyName="IsVisible" Value="False" />
