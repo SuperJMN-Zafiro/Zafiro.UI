@@ -5,7 +5,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Xaml.Interactions.Custom;
 using ReactiveUI;
-using Zafiro.UI.Jobs.Progress;
+using Zafiro.Progress;
 
 namespace Sample;
 
@@ -30,7 +30,7 @@ public class ProgressBehavior : DisposingBehavior<ProgressBar>
         this.WhenAnyValue(x => x.Progress)
             .Do(progress =>
             {
-                if (progress is None)
+                if (progress is NotStarted)
                 {
                     AssociatedObject.IsVisible = false;
                 }
@@ -39,7 +39,7 @@ public class ProgressBehavior : DisposingBehavior<ProgressBar>
                     AssociatedObject.IsVisible = true;
                 }
                 
-                if (progress is Proportion ratioProgress)
+                if (progress is ProportionalProgress ratioProgress)
                 {
                     AssociatedObject.IsIndeterminate = false;
                     AssociatedObject.Maximum = 1;

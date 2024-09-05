@@ -5,12 +5,11 @@ using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 using DynamicData;
-using DynamicData.PLinq;
 using ReactiveUI;
+using Zafiro.Progress;
 using Zafiro.UI.Jobs;
 using Zafiro.UI.Jobs.Execution;
 using Zafiro.UI.Jobs.Manager;
-using Zafiro.UI.Jobs.Progress;
 
 namespace Sample.Samples;
 
@@ -37,16 +36,16 @@ public class TasksSampleViewModel : ReactiveObject
 
     private static Job CreateStoppableJob(string id, string name)
     {
-        var subject = new BehaviorSubject<IProgress>(new None());
+        var subject = new BehaviorSubject<IProgress>(NotStarted.Instance);
         var execution = ExecutionFactory.From(async ct =>
         {
             subject.OnNext(new Unknown());
             await Task.Delay(2000, ct);
-            subject.OnNext(new Proportion(0.3));
+            subject.OnNext(new ProportionalProgress(0.3));
             await Task.Delay(1000, ct);
-            subject.OnNext(new Proportion(0.6));
+            subject.OnNext(new ProportionalProgress(0.6));
             await Task.Delay(2000, ct);
-            subject.OnNext(new Proportion(0.8));
+            subject.OnNext(new ProportionalProgress(0.8));
             await Task.Delay(1500, ct);
             subject.OnNext(new Completed());
             await Task.Delay(1000, ct);
@@ -57,16 +56,16 @@ public class TasksSampleViewModel : ReactiveObject
     
     private static Job CreateUnstoppableJob(string id, string name)
     {
-        var subject = new BehaviorSubject<IProgress>(None.Instance);
+        var subject = new BehaviorSubject<IProgress>(NotStarted.Instance);
         var execution = ExecutionFactory.From(async () =>
         {
             subject.OnNext(new Unknown());
             await Task.Delay(2000);
-            subject.OnNext(new Proportion(0.3));
+            subject.OnNext(new ProportionalProgress(0.3));
             await Task.Delay(1000);
-            subject.OnNext(new Proportion(0.6));
+            subject.OnNext(new ProportionalProgress(0.6));
             await Task.Delay(2000);
-            subject.OnNext(new Proportion(0.8));
+            subject.OnNext(new ProportionalProgress(0.8));
             await Task.Delay(1500);
             subject.OnNext(new Completed());
             await Task.Delay(1000);

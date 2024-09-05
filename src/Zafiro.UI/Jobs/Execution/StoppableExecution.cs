@@ -1,8 +1,7 @@
 using System.Reactive;
 using CSharpFunctionalExtensions;
 using ReactiveUI;
-using Zafiro.Reactive;
-using Zafiro.UI.Jobs.Progress;
+using Zafiro.Progress;
 
 namespace Zafiro.UI.Jobs.Execution;
 
