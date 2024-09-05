@@ -16,7 +16,7 @@ public class JobManager : IJobManager
 
     public IObservable<IChangeSet<JobItem, string>> Tasks { get; }
 
-    public void Add(Job job, JobOptions options)
+    public void Add(IJob job, JobOptions options)
     {
         if (options.RemoveOnCompleted)
         {
